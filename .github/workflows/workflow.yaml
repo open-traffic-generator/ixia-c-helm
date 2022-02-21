@@ -27,13 +27,20 @@ jobs:
           rm -rf ./get_helm.sh
           helm
 
+      - name: Get version
+        id: get_version
+        run: |
+          echo "::set-output name=version::v$(grep ixia-c-helm-chart version.yaml | sed -e 's/ //g')"
+
       - name: Create helm packages
         run: |
-          echo 1 >> index.yaml 
+          helm package ./src/ixia-c-controller/
+          helm package ./src/ixia-c-traffic-engine/
+          helm repo index ./ --url https://github.com/open-traffic-generator/ixia-c-helm/releases/download/${{ steps.get_version.outputs.version }}
 
-      - name: Commit index.yaml
+
+      - name: Commit auto generated index.yaml
         id: commit_generated
-        # if: github.event_name == 'pull_request'
         run: |
           git config user.name "Github Actions Bot"
           git config user.email "actions@github.com"
@@ -46,24 +53,19 @@ jobs:
               echo "No changed auto generated index.yaml"
           fi
 
-      - name: Get version
-        id: get_version
-        run: |
-          echo "::set-output name=version::v$(grep ixia-c-helm-chart version.yaml | sed -e 's/ //g')"
-      # - name: Check tag for current version
-      #   uses: mukunku/tag-exists-action@v1.0.0
-      #   id: check_tag
-      #   with:
-      #     tag: ${{ steps.get_version.outputs.version }}
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check tag for current version
+        uses: mukunku/tag-exists-action@v1.0.0
+        id: check_tag
+        with:
+          tag: ${{ steps.get_version.outputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Create release and publish artifacts
-      #   if: steps.check_tag.outputs.exists == 'false'
-      #   uses: ncipollo/release-action@v1
-      #   with:
-      #     name: "Release ${{ steps.get_version.outputs.version }}"
-      #     body: "View openapi.yaml spec at https://redocly.github.io/redoc/?url=https://github.com/open-traffic-generator/models/releases/download/${{ steps.get_version.outputs.version }}/openapi.yaml"
-      #     artifacts: artifacts/openapi.yaml,artifacts/openapi.json,artifacts/otg.proto,artifacts/openapi.html
-      #     tag: ${{ steps.get_version.outputs.version }}
-      #     token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create release and publish artifacts
+        if: steps.check_tag.outputs.exists == 'false'
+        uses: ncipollo/release-action@v1
+        with:
+          name: "Release ${{ steps.get_version.outputs.version }}"
+          artifacts: ixia-c-controller-${{ steps.get_version.outputs.version }}.tgz,ixia-c-traffic-engine-${{ steps.get_version.outputs.version }}.tgz
+          tag: ${{ steps.get_version.outputs.version }}
+          token: ${{ secrets.GITHUB_TOKEN }}
