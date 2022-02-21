@@ -1,0 +1,7 @@
+apiVersion: v2
+name: ixia-c-controller
+description: |
+  Controller for managing ixia-c traffic agents
+type: application
+version: 0.0.1
+appVersion: 0.0.1-2597

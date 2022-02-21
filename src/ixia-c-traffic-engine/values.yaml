@@ -1,0 +1,48 @@
+# Default values for te.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+name: te-svc-1
+egressDevice: veth1
+te:
+  repository: ixiacom/ixia-c-traffic-engine
+  pullPolicy: IfNotPresent
+  tag: 1.4.1.5
+  # reserve a full CPU for athena traffic engine
+  resources:
+    limits:
+      cpu: "1"
+      memory: "500Mi"
+egressInitJob:
+  name: shrinkray-athena-egress-init-job
+  # bcm has iptools installed, so we use it to run the script
+  repository: docker-remote.artifactorylbj.it.keysight.com/busybox:latest
+  pullPolicy: IfNotPresent
+  tag: 
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+podAnnotations: {}
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+securityContext:
+  privileged: true
+  capabilities:
+    add:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RAWIO
+      - NET_RAW
+service:
+  type: ClusterIP
+  port: 5555
+ingress:
+  enabled: false
+autoscaling:
+  enabled: false
+nodeSelector: {}
+tolerations: []
+affinity: {}
