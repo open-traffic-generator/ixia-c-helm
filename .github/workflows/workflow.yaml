@@ -5,8 +5,8 @@ on:
   push:
   pull_request:
   workflow_dispatch:
-    # paths:
-    # - version.txt
+    paths:
+    - version.yaml
 
 
 jobs:
@@ -66,6 +66,6 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           name: "Release ${{ steps.get_version.outputs.version }}"
-          artifacts: ixia-c-controller-${{ steps.get_version.outputs.version }}.tgz,ixia-c-traffic-engine-${{ steps.get_version.outputs.version }}.tgz
+          artifacts: ixia-c-*.tgz
           tag: ${{ steps.get_version.outputs.version }}
           token: ${{ secrets.GITHUB_TOKEN }}
