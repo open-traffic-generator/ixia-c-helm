@@ -30,7 +30,7 @@ jobs:
       - name: Get version
         id: get_version
         run: |
-          echo "::set-output name=version::v$(grep ixia-c-helm-chart version.yaml | sed -e 's/ //g')"
+          echo "::set-output name=version::v$(grep ixia-c-helm-chart version.yaml | cut -d: -f2 |sed -e 's/ //g')"
 
       - name: Create helm packages
         run: |
