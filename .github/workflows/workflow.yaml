@@ -66,6 +66,6 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           name: "Release ${{ steps.get_version.outputs.version }}"
-          artifacts: ixia-c-*.tgz
+          artifacts: ixia-c-*.tgz, index.yaml
           tag: ${{ steps.get_version.outputs.version }}
           token: ${{ secrets.GITHUB_TOKEN }}
