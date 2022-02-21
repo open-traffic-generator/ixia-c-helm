@@ -1,0 +1,25 @@
+name: Models CI/CD
+
+# Trigger every time a push occurs
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    paths:
+    - '!artifacts/**'
+    - 'version'
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Test
+        run: |
+          ls
