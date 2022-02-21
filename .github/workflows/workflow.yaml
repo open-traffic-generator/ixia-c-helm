@@ -5,8 +5,8 @@ on:
   push:
   pull_request:
   workflow_dispatch:
-    paths:
-    - version.yaml
+    # paths:
+    # - version.yaml
 
 
 jobs:
@@ -46,13 +46,13 @@ jobs:
         run: |
           sed -i "s/^version.*/version\:\ ${{ steps.get_version.outputs.version }}/g" ./src/ixia-c-controller/Chart.yaml
           sed -i "s/^appVersion.*/appVersion\:\ ${{ steps.get_controller_version.outputs.version }}/g" ./src/ixia-c-controller/Chart.yaml
-          sed -i "s/^tag.*/tag\:\ ${{ steps.get_controller_version.outputs.version }}/g" ./src/ixia-c-controller/values.yaml
+          sed -i "s/^\s*tag.*/    tag\:\ ${{ steps.get_controller_version.outputs.version }}/g" ./src/ixia-c-controller/values.yaml
 
       - name: Update ixia-c-traffic-engine Chart & values yaml
         run: |
           sed -i "s/^version.*/version\:\ ${{ steps.get_version.outputs.version }}/g" ./src/ixia-c-traffic-engine/Chart.yaml
           sed -i "s/^appVersion.*/appVersion\:\ ${{ steps.get_traffic_engine_version.outputs.version }}/g" ./src/ixia-c-traffic-engine/Chart.yaml
-          sed -i "s/^tag.*/tag\:\ ${{ steps.get_traffic_engine_version.outputs.version }}/g" ./src/ixia-c-traffic-engine/values.yaml
+          sed -i "s/^\s*tag.*/   tag\:\ ${{ steps.get_traffic_engine_version.outputs.version }}/g" ./src/ixia-c-traffic-engine/values.yaml
 
       - name: Create helm packages
         run: |
