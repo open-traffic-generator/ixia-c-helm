@@ -1,4 +1,4 @@
-name: Models CI/CD
+name: ixia-c-helm CI/CD
 
 # Trigger every time a push occurs
 on:
