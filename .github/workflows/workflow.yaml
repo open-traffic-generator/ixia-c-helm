@@ -1,12 +1,12 @@
 name: Models CI/CD
 
 # Trigger every time a push occurs
-on:
-  push:
-  pull_request:
-  workflow_dispatch:
-    paths:
-    - version.txt
+# on:
+#   push:
+#   pull_request:
+#   workflow_dispatch:
+#     paths:
+#     - version.txt
 
 
 jobs:
@@ -21,7 +21,6 @@ jobs:
 
       - name: Install helm
         run: |
-          apt-get install curl
           curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
           chmod 700 get_helm.sh
           ./get_helm.sh
