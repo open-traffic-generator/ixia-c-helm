@@ -1,12 +1,12 @@
 name: Models CI/CD
 
 # Trigger every time a push occurs
-# on:
-#   push:
-#   pull_request:
-#   workflow_dispatch:
-#     paths:
-#     - version.txt
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    # paths:
+    # - version.txt
 
 
 jobs:
