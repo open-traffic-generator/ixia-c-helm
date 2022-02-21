@@ -30,7 +30,7 @@ jobs:
       - name: Get version
         id: get_version
         run: |
-          echo "::set-output name=version::v$(grep ixia-c-helm-chart version.yaml | cut -d: -f2 |sed -e 's/ //g')"
+          echo "::set-output name=version::$(grep ixia-c-helm-chart version.yaml | cut -d: -f2 |sed -e 's/ //g')"
 
       - name: Get ixia-c-controller version
         id: get_controller_version
@@ -58,7 +58,7 @@ jobs:
         run: |
           helm package ./src/ixia-c-controller/
           helm package ./src/ixia-c-traffic-engine/
-          helm repo index ./ --url https://github.com/open-traffic-generator/ixia-c-helm/releases/download/${{ steps.get_version.outputs.version }}
+          helm repo index ./ --url https://github.com/open-traffic-generator/ixia-c-helm/releases/download/v${{ steps.get_version.outputs.version }}
 
 
       - name: Commit auto generated/updated files
@@ -83,7 +83,7 @@ jobs:
         uses: mukunku/tag-exists-action@v1.0.0
         id: check_tag
         with:
-          tag: ${{ steps.get_version.outputs.version }}
+          tag: v${{ steps.get_version.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -91,7 +91,7 @@ jobs:
         if: steps.check_tag.outputs.exists == 'false'
         uses: ncipollo/release-action@v1
         with:
-          name: "Release ${{ steps.get_version.outputs.version }}"
+          name: "Release v${{ steps.get_version.outputs.version }}"
           artifacts: ixia-c-*.tgz, index.yaml
-          tag: ${{ steps.get_version.outputs.version }}
+          tag: v${{ steps.get_version.outputs.version }}
           token: ${{ secrets.GITHUB_TOKEN }}
