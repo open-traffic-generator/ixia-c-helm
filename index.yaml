@@ -3,23 +3,23 @@ entries:
   ixia-c-controller:
   - apiVersion: v2
     appVersion: 0.0.1-2597
-    created: "2022-02-21T11:34:52.501167936Z"
+    created: "2022-02-21T11:38:56.65470195Z"
     description: 'Controller for managing ixia-c traffic agents '
-    digest: 3f8226c40f429a464c854481b4f22972c79e267d0236644f254545950b291e0f
+    digest: edddfecf2f58ae23f4937c84a11fe091a8da8e6012c90287937329bb128b079f
     name: ixia-c-controller
     type: application
     urls:
-    - https://github.com/open-traffic-generator/ixia-c-helm/releases/download/v0.0.1/ixia-c-controller-0.0.1.tgz
+    - https://github.com/open-traffic-generator/ixia-c-helm/releases/download/v0.0.2/ixia-c-controller-0.0.1.tgz
     version: 0.0.1
   ixia-c-traffic-engine:
   - apiVersion: v2
     appVersion: 1.4.1.2
-    created: "2022-02-21T11:34:52.50168234Z"
+    created: "2022-02-21T11:38:56.65557447Z"
     description: Agent for generating/processing data-plane traffic in ixia-c
-    digest: 6ff49f87cb0a312cd435fe36e7e3ce33a6c6b05b18f8f3be2c9b773f8e3e5ea5
+    digest: e12cda10b252f74d46bc99d99238ea2694dda492f3543d32f40b5ef58540ba08
     name: ixia-c-traffic-engine
     type: application
     urls:
-    - https://github.com/open-traffic-generator/ixia-c-helm/releases/download/v0.0.1/ixia-c-traffic-engine-0.0.1.tgz
+    - https://github.com/open-traffic-generator/ixia-c-helm/releases/download/v0.0.2/ixia-c-traffic-engine-0.0.1.tgz
     version: 0.0.1
-generated: "2022-02-21T11:34:52.50027113Z"
+generated: "2022-02-21T11:38:56.65388123Z"
