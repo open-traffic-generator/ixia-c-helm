@@ -4,9 +4,9 @@ name: ixia-c-helm CI/CD
 on:
   push:
   pull_request:
-  workflow_dispatch:
-    paths:
-    - version.yaml
+  # workflow_dispatch:
+  #   paths:
+  #   - version.yaml
 
 
 jobs:
@@ -47,6 +47,7 @@ jobs:
           sed -i "s/^version.*/version\:\ ${{ steps.get_version.outputs.version }}/g" ./src/ixia-c-controller/Chart.yaml
           sed -i "s/^appVersion.*/appVersion\:\ ${{ steps.get_controller_version.outputs.version }}/g" ./src/ixia-c-controller/Chart.yaml
           sed -i "s/^\s*tag.*/    tag\:\ ${{ steps.get_controller_version.outputs.version }}/g" ./src/ixia-c-controller/values.yaml
+          cat ./src/ixia-c-controller/values.yaml
 
       - name: Update ixia-c-traffic-engine Chart & values yaml
         run: |
