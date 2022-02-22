@@ -76,7 +76,7 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
 
 ### Get Started
 
-- add helm repo 
+- Add helm repo 
   ```sh
   helm repo add <local-repo-name> https://raw.githubusercontent.com/open-traffic-generator/ixia-c-helm/main/
   ```
@@ -85,11 +85,12 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
     helm repo add ixia-c-helm https://raw.githubusercontent.com/open-traffic-generator/ixia-c-helm/main/
     ```
 
-- check all the local helm chart repo list 
+- Check all the local helm chart repo list 
   ```sh
   helm repo list -a
   ```
-- update helm repo to the latest version available
+
+- Update helm repo to the latest version available
   ```sh
   helm repo update <local-repo-name>
   ```
@@ -97,7 +98,8 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
     ```sh
     helm repo update ixia-c-helm 
     ```
-- search helm charts 
+
+- Search helm charts 
     ```sh 
     helm search repo <local-repo-name>
     ```
@@ -106,7 +108,7 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
         helm search repo ixia-c-helm 
         ```
 
-- check all helm charts details with versions
+- Check all helm charts details with versions
     ```sh 
     helm search repo <local-repo-name> -l
     ```
@@ -115,7 +117,7 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
         helm search repo ixia-c-helm -l
         ```
 
-- check all helm charts details for a specific version
+- Check all helm charts details for a specific version
     ```sh 
     helm search repo <local-repo-name> --version=<chart-version>
     ```
@@ -124,11 +126,12 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
         helm search repo ixia-c-helm --version=0.0.1
         ```
 
-- check helm envioronment variables
+- Check helm envioronment variables
     ```sh 
     helm env 
     ```
-- check all contents(in chart.yaml & values.yaml) for a specific helmchart
+
+- Check all contents(in chart.yaml & values.yaml) for a specific helmchart
     ```sh 
     helm show all <chart-name>
     ```
@@ -137,7 +140,7 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
         helm show all ixia-c-helm/ixia-c-controller 
         ```
 
-- check contents in Chart.yaml for a specific helmchart
+- Check contents in Chart.yaml for a specific helmchart
     ```sh 
     helm show chart <chart-name>
     ```
@@ -146,7 +149,7 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
         helm show chart ixia-c-helm/ixia-c-controller 
         ```
 
-- check contents in values.yaml for a specific helmchart
+- Check contents in values.yaml for a specific helmchart
     ```sh 
     helm show values <chart-name>
     ```
@@ -156,43 +159,43 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
         ```
 
 ### Deploy Topology
-- get sample files
+- Get sample files
     - Clone this repository
-  ```sh
-  git clone https://github.com/open-traffic-generator/ixia-c-helm.git && cd ixia-c-helm/helmfile-samples
-  ```
-- edit a helmfile.yaml based on your requirement 
-    - midify the chart name according to the local name in helmfile.yaml
-    ```sh 
-    releases:
-        - chart: ixia-c-helm/ixia-c-controller 
-    ```
-    - modify interface and ports 
-    ```sh 
-    set:
-      - name: name
-        value: ixia-c-traffic-engine-svc-1
-      - name: egressDevice
-        value: veth1
-      - name: service.port
-        value: 5555
-    ```
-    - if your want to use a different chart version add accordingly in helmfile.taml (If you don't mention anything it will use the lastest chart available)
-    ```sh 
-    releases:
-        - chart: ixia-c-helm/ixia-c-controller 
-            version: 0.0.1
-    ```
-- deploy/install topologies
+        ```sh
+        git clone https://github.com/open-traffic-generator/ixia-c-helm.git && cd ixia-c-helm/helmfile-samples
+        ```
+- Edit a helmfile.yaml based on your requirement 
+    - Modify the chart name according to the local name in helmfile.yaml 
+        ```sh 
+        releases:
+            - chart: ixia-c-helm/ixia-c-controller 
+        ```
+    - Modify interface and ports based on the requirements
+        ```sh 
+        set:
+        - name: name
+            value: ixia-c-traffic-engine-svc-1
+        - name: egressDevice
+            value: veth1
+        - name: service.port
+            value: 5555
+        ```
+    - If your want to use a different chart version add accordingly in helmfile.yaml (If you don't mention anything it will use the lastest chart version)
+        ```sh 
+        releases:
+            - chart: ixia-c-helm/ixia-c-controller 
+                version: 0.0.1
+        ```
+- Deploy/install topologies
     - go to specific topology folder and execute the below command
-    ```sh
-    helmfile sync
-    ```
-- delete/uninstall topologies
+        ```sh
+        helmfile sync
+        ```
+- Delete/uninstall topologies
     - go to specific topology folder and execute the below command
-    ```sh
-    helmfile delete
-    ```
+        ```sh
+        helmfile delete
+        ```
 
 
 
