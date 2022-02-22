@@ -16,8 +16,43 @@
 
 Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c controller](https://hub.docker.com/r/ixiacom/ixia-c-controller) and [Ixia-c traffic engine](https://hub.docker.com/r/ixiacom/ixia-c-traffic-engine).
 
+## Quick Start
+- Please make sure your setup is ready with all the dependecies installed. Please follow [Prerequisites](#prerequisites) for this. 
 
-## Get Started
+- Add helm repo 
+  ```sh
+  helm repo add ixia-c-helm https://raw.githubusercontent.com/open-traffic-generator/ixia-c-helm/main/
+  ```
+
+- Check all the local helm chart repo list 
+  ```sh
+  helm repo list 
+  ```
+
+- Deploy topologies using `helm install`
+    ```sh
+    # install helm chart
+    helm install ixia-c-traffic-engine ixia-c-helm/ixia-c-traffic-engine --set egressDevice=veth2,service.port=556
+    # uninstall helm chart 
+    helm uninstall ixia-c-traffic-engine
+    ```
+
+- Deploy back-2-back topology using `helmfile`
+    - Get sample files
+        ```sh
+        git clone https://github.com/open-traffic-generator/ixia-c-helm.git && cd ixia-c-helm/samples/back-2-back
+        ``` 
+    - Deploy/install topologies
+        ```sh
+        helmfile sync
+        ```
+    - Delete/uninstall topologies
+        ```sh
+        helmfile delete
+        ```
+    
+
+## Getting Started
 - Please make sure your setup is ready with all the dependecies installed. Please follow [Prerequisites](#prerequisites) for this. 
 - Add helm repo 
   ```sh
