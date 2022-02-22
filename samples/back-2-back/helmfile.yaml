@@ -30,6 +30,6 @@ releases:
       - name: name
         value: ixia-c-traffic-engine-svc-2
       - name: egressDevice
-        value: veth2
+        value: veth3
       - name: service.port
         value: 5556

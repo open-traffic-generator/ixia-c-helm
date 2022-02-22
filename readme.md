@@ -29,14 +29,6 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
   helm repo list 
   ```
 
-- Deploy topologies using `helm install`
-    ```sh
-    # install helm chart
-    helm install ixia-c-traffic-engine ixia-c-helm/ixia-c-traffic-engine --set egressDevice=veth2,service.port=556
-    # uninstall helm chart 
-    helm uninstall ixia-c-traffic-engine
-    ```
-
 - Deploy back-2-back topology using `helmfile`
     - Get sample files
         ```sh
