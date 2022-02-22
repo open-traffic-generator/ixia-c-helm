@@ -6,7 +6,7 @@ on:
   pull_request:
   workflow_dispatch:
     paths:
-    - version.yaml
+    - 'version.yaml'
 
 
 jobs:
