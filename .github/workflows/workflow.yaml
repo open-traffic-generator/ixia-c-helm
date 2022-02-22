@@ -1,12 +1,8 @@
 name: ixia-c-helm CI/CD
-
-# Trigger every time a push/pull_request/workflow_dispatch occurs
 on:
   push:
-  pull_request:
-  workflow_dispatch:
     paths:
-    - 'version.yaml'
+    - ./version.yaml
 
 
 jobs:
