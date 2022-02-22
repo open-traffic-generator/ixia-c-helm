@@ -14,7 +14,7 @@
 </p
 
 
-Ixia-c-helm is tool to simplifies the deployment of topologies for Ixia-c controller and Ixia-c traffic engine.
+Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c controller](https://hub.docker.com/r/ixiacom/ixia-c-controller) and [Ixia-c traffic engine](https://hub.docker.com/r/ixiacom/ixia-c-traffic-engine).
 
 ### Prerequisites
 
@@ -80,6 +80,10 @@ Ixia-c-helm is tool to simplifies the deployment of topologies for Ixia-c contro
   ```sh
   helm repo add <local-repo-name> https://raw.githubusercontent.com/open-traffic-generator/ixia-c-helm/main/index.yaml
   ```
+  - example -
+    ```sh
+    helm repo add ixia-c-helm https://raw.githubusercontent.com/open-traffic-generator/ixia-c-helm/main/index.yaml
+    ```
 
 - check all the local helm chart repo list 
   ```sh
@@ -89,19 +93,37 @@ Ixia-c-helm is tool to simplifies the deployment of topologies for Ixia-c contro
   ```sh
   helm repo update <local-repo-name>
   ```
+  - example -
+    ```sh
+    helm repo update ixia-c-helm 
+    ```
 - search helm charts 
     ```sh 
     helm search repo <local-repo-name>
     ```
+    - example -
+        ```sh
+        helm search repo ixia-c-helm 
+        ```
+
 - check all helm charts details with versions
     ```sh 
     helm search repo <local-repo-name> -l
     ```
+    - example -
+        ```sh
+        helm search repo ixia-c-helm -l
+        ```
 
 - check all helm charts details for a specific version
     ```sh 
     helm search repo <local-repo-name> --version=<chart-version>
     ```
+    - example -
+        ```sh
+        helm search repo ixia-c-helm --version=0.0.1
+        ```
+
 - check helm envioronment variables
     ```sh 
     helm env 
@@ -119,10 +141,19 @@ Ixia-c-helm is tool to simplifies the deployment of topologies for Ixia-c contro
     ```sh 
     helm show chart <chart-name>
     ```
+    - example
+        ```sh
+        helm show chart ixia-c-helm/ixia-c-controller 
+        ```
+
 - check contents in values.yaml for a specific helmchart
     ```sh 
     helm show values <chart-name>
     ```
+    - example
+        ```sh
+        helm show values ixia-c-helm/ixia-c-controller 
+        ```
 
 ### Deploy Topology
 - get sample files
