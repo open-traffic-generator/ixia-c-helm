@@ -8,7 +8,7 @@ controller:
     repository: ixiacom/ixia-c-controller
     pullPolicy: IfNotPresent
     tag: 0.0.1-2610
-    name: ixia-c-svc
+    name: ixia-c-controller-svc
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
