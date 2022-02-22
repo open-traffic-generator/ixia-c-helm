@@ -30,9 +30,9 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
 
 - Check all the local helm chart repo list 
   ```sh
-  helm repo list -a
+  helm repo list 
   ```
-
+  
 - Update helm repo to the latest version available
   ```sh
   helm repo update <local-repo-name>
