@@ -2,7 +2,7 @@ name: ixia-c-helm CI/CD
 on:
   push:
     paths:
-    - ./version.yaml
+    - version.yaml
 
 
 jobs:
