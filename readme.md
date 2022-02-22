@@ -80,7 +80,7 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
   ```sh
   helm repo add <local-repo-name> https://raw.githubusercontent.com/open-traffic-generator/ixia-c-helm/main/index.yaml
   ```
-  - example -
+  - example
     ```sh
     helm repo add ixia-c-helm https://raw.githubusercontent.com/open-traffic-generator/ixia-c-helm/main/index.yaml
     ```
