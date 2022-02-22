@@ -19,7 +19,6 @@ egressInitJob:
   # bcm has iptools installed, so we use it to run the script
   repository: docker-remote.artifactorylbj.it.keysight.com/busybox:latest
   pullPolicy: IfNotPresent
-  tag: 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
