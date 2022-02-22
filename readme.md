@@ -93,7 +93,7 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
   ```sh
   helm repo update <local-repo-name>
   ```
-  - example -
+  - example
     ```sh
     helm repo update ixia-c-helm 
     ```
@@ -101,7 +101,7 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
     ```sh 
     helm search repo <local-repo-name>
     ```
-    - example -
+    - example
         ```sh
         helm search repo ixia-c-helm 
         ```
@@ -110,7 +110,7 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
     ```sh 
     helm search repo <local-repo-name> -l
     ```
-    - example -
+    - example
         ```sh
         helm search repo ixia-c-helm -l
         ```
@@ -183,12 +183,12 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
         - chart: ixia-c-helm/ixia-c-controller 
             version: 0.0.1
     ```
-- deploy/install topologies -
+- deploy/install topologies
     - go to specific topology folder and execute the below command
     ```sh
     helmfile sync
     ```
-- delete/uninstall topologies -
+- delete/uninstall topologies
     - go to specific topology folder and execute the below command
     ```sh
     helmfile delete
