@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://github.com/open-traffic-generator/ixia-c-helm/releases/tag/v0.0.2"><img alt="Release v0.0.2" src="https://img.shields.io/badge/release-v0.0.2-brightgreen"></a>
-  <a href="https://github.com/open-traffic-generator/ixia-c/releases/tag/v0.0.1-2610"><img alt="ixia-c v0.0.1-2610" src="https://img.shields.io/badge/ixia--c-0.0.1--2610-brightgreen"></a>
+  <a href="https://github.com/open-traffic-generator/ixia-c/releases/tag/v0.0.1-2610"><img alt="ixia-c v0.0.1-2610" src="https://img.shields.io/badge/ixia--c-v0.0.1--2610-brightgreen"></a>
 </p
 
 
