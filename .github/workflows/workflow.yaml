@@ -6,7 +6,7 @@ on:
   pull_request:
   workflow_dispatch:
     paths:
-    - version.yaml
+    - versions.yaml
 
 
 jobs:
@@ -30,17 +30,17 @@ jobs:
       - name: Get version
         id: get_version
         run: |
-          echo "::set-output name=version::$(grep ixia-c-helm-chart version.yaml | cut -d: -f2 |sed -e 's/ //g')"
+          echo "::set-output name=version::$(grep ixia-c-helm-chart versions.yaml | cut -d: -f2 |sed -e 's/ //g')"
 
       - name: Get ixia-c-controller version
         id: get_controller_version
         run: |
-          echo "::set-output name=version::$(grep ixia-c-controller version.yaml | cut -d: -f2 |sed -e 's/ //g')"
+          echo "::set-output name=version::$(grep ixia-c-controller versions.yaml | cut -d: -f2 |sed -e 's/ //g')"
 
       - name: Get ixia-c-traffic-engine version
         id: get_traffic_engine_version
         run: |
-          echo "::set-output name=version::$(grep ixia-c-traffic-engine version.yaml | cut -d: -f2 |sed -e 's/ //g')"
+          echo "::set-output name=version::$(grep ixia-c-traffic-engine versions.yaml | cut -d: -f2 |sed -e 's/ //g')"
 
       - name: Update ixia-c-controller Chart & values yaml
         run: |
