@@ -1,0 +1,35 @@
+helmDefaults:
+  wait: true
+  createNamespace: true
+  timeout: 18000
+ 
+releases:
+  - chart: ixia-c-helm/ixia-c-controller 
+    cleanupOnFail: true
+    name: ixia-c-controller-svc
+    namespace: ixia-c
+    installed: true
+  - chart: ixia-c-helm/ixia-c-traffic-engine 
+    cleanupOnFail: true
+    name: ixia-c-traffic-engine-svc-1
+    namespace: ixia-c
+    installed: true
+    set:
+      - name: name
+        value: ixia-c-traffic-engine-svc-1
+      - name: egressDevice
+        value: veth1
+      - name: service.port
+        value: 5555
+  - chart: ixia-c-helm/ixia-c-traffic-engine 
+    cleanupOnFail: true
+    name: ixia-c-traffic-engine-svc-2
+    namespace: ixia-c
+    installed: true
+    set:
+      - name: name
+        value: ixia-c-traffic-engine-svc-2
+      - name: egressDevice
+        value: veth2
+      - name: service.port
+        value: 5556
