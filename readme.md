@@ -17,7 +17,7 @@
 Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c controller](https://hub.docker.com/r/ixiacom/ixia-c-controller) and [Ixia-c traffic engine](https://hub.docker.com/r/ixiacom/ixia-c-traffic-engine).
 
 
-# Get Started
+## Get Started
 - Please make sure your setup is ready with all the dependecies installed. Please follow [Prerequisites](#prerequisites) for this. 
 - Add helm repo 
   ```sh
@@ -101,8 +101,8 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
         helm show values ixia-c-helm/ixia-c-controller 
         ```
 
-# Deploy Topology
-### Deploy using `helm istall`
+## Deploy Topology
+#### Deploy using `helm istall`
 - deploy with default values
     ```sh
     helm install <release-name> <chart-name> 
@@ -120,7 +120,7 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
         helm uninstall ixia-c-controller 
         ```
 
-### Deploy using `helmfile`
+#### Deploy using `helmfile`
 - Get sample files
     - Clone this repository
         ```sh
@@ -160,7 +160,7 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
                 version: 0.0.1
         ```
 
-# Prerequisites
+## Prerequisites
 
 - x86-64 Ubuntu 20.04 Server
 - At least 4 CPU cores, 8GB RAM and 128GB HDD
