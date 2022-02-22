@@ -164,4 +164,3 @@ Ex-
     ```sh
         kubectl get svc -n <namespace_name>
     ```
-
