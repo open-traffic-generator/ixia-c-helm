@@ -16,66 +16,9 @@
 
 Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c controller](https://hub.docker.com/r/ixiacom/ixia-c-controller) and [Ixia-c traffic engine](https://hub.docker.com/r/ixiacom/ixia-c-traffic-engine).
 
-### Prerequisites
-
-- x86-64 Ubuntu 20.04 Server
-- At least 4 CPU cores, 8GB RAM and 128GB HDD
-- Please make sure you have healthy k8s cluster running.
-- Ensure existing network interfaces are `Up` and have `Promiscuous` mode enabled.
-
-   ```sh
-   # check interface details
-   ip addr
-   # configure as required
-   ip link set eth1 up
-   ip link set eth1 promisc on
-   ```
-- (Optional) To deploy `ixia-c-traffic-engine` against veth interface pairs, you need to create them as follows:
-
-   ```sh
-   # create veth pair veth1 and veth2
-   ip link add veth1 type veth peer name veth2
-   ip link set veth1 up
-   ip link set veth2 up
-- Please make sure calico service is deployed.
-    ```sh
-    curl https://docs.projectcalico.org/manifests/calico.yaml -O
-    kubectl apply -f calico.yaml
-    ```
-- Please make sure helm is installed.
-    ```sh
-    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-    chmod 700 get_helm.sh
-    ./get_helm.sh
-    ```
-- Please make sure helmfile is installed.
-    - Install using wget 
-        ```sh
-        wget -O helmfile_linux_amd64 https://github.com/roboll/helmfile/releases/download/v0.135.0/helmfile_linux_amd64
-        chmod +x helmfile_linux_amd64
-        mv helmfile_linux_amd64 ~/.local/bin/helmfile
-        ```
-    - Install using brew
-        ```sh
-        brew install helmfile
-        ```
-        - Install brew
-            ```sh
-            sudo apt update
-            sudo apt-get install build-essential
-            sudo apt install git -y
-            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-            brew doctor
-            brew install gcc
-            ```
-    - Reference
-        - https://github.com/roboll/helmfile
-        - https://www.codegrepper.com/code-examples/shell/helmfile+install+ubuntu
-
 
 ### Get Started
-
+- Please make sure your setup is ready with all the dependecies installed. Please follow [Prerequisites](#prerequisites) for this. 
 - Add helm repo 
   ```sh
   helm repo add <local-repo-name> https://raw.githubusercontent.com/open-traffic-generator/ixia-c-helm/main/
@@ -162,9 +105,20 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
 - Get sample files
     - Clone this repository
         ```sh
-        git clone https://github.com/open-traffic-generator/ixia-c-helm.git && cd ixia-c-helm/helmfile-samples
+        git clone https://github.com/open-traffic-generator/ixia-c-helm.git && cd ixia-c-helm/samples
         ```
-- Edit a helmfile.yaml based on your requirement 
+- Deploy/install topologies
+    - go to specific topology folder and execute the below command
+        ```sh
+        helmfile sync
+        ```
+- Delete/uninstall topologies
+    - go to specific topology folder and execute the below command
+        ```sh
+        helmfile delete
+        ```
+
+- **Customize** your helmfile based on your requirement 
     - Modify the chart name according to the local name in helmfile.yaml 
         ```sh 
         releases:
@@ -186,18 +140,62 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
             - chart: ixia-c-helm/ixia-c-controller 
                 version: 0.0.1
         ```
-- Deploy/install topologies
-    - go to specific topology folder and execute the below command
+
+### Prerequisites
+
+- x86-64 Ubuntu 20.04 Server
+- At least 4 CPU cores, 8GB RAM and 128GB HDD
+- Please make sure you have healthy k8s cluster running.
+- Ensure existing network interfaces are `Up` and have `Promiscuous` mode enabled.
+
+   ```sh
+   # check interface details
+   ip addr
+   # configure as required
+   ip link set eth1 up
+   ip link set eth1 promisc on
+   ```
+- (Optional) To deploy `ixia-c-traffic-engine` against veth interface pairs, you need to create them as follows:
+
+   ```sh
+   # create veth pair veth1 and veth2
+   ip link add veth1 type veth peer name veth2
+   ip link set veth1 up
+   ip link set veth2 up
+- Please make sure calico service is deployed.
+    ```sh
+    curl https://docs.projectcalico.org/manifests/calico.yaml -O
+    kubectl apply -f calico.yaml
+    ```
+- Please make sure helm is installed.
+    ```sh
+    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    chmod 700 get_helm.sh
+    ./get_helm.sh
+    ```
+- Please make sure helmfile is installed.
+    - Install using wget 
         ```sh
-        helmfile sync
+        wget -O helmfile_linux_amd64 https://github.com/roboll/helmfile/releases/download/v0.135.0/helmfile_linux_amd64
+        chmod +x helmfile_linux_amd64
+        mv helmfile_linux_amd64 ~/.local/bin/helmfile
         ```
-- Delete/uninstall topologies
-    - go to specific topology folder and execute the below command
+    - Install using brew
         ```sh
-        helmfile delete
+        brew install helmfile
         ```
-
-
-
+        - Install brew
+            ```sh
+            sudo apt update
+            sudo apt-get install build-essential
+            sudo apt install git -y
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+            brew doctor
+            brew install gcc
+            ```
+    - Reference
+        - https://github.com/roboll/helmfile
+        - https://www.codegrepper.com/code-examples/shell/helmfile+install+ubuntu
 
         
