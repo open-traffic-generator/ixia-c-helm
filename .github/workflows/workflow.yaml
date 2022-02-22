@@ -1,12 +1,12 @@
 name: ixia-c-helm CI/CD
 
-# Trigger every time a push occurs
+# Trigger every time a push/pull_request/workflow_dispatch occurs
 on:
   push:
   pull_request:
   workflow_dispatch:
     paths:
-    - version.yaml
+    - versions.yaml
 
 
 jobs:
@@ -19,7 +19,47 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
+      - name: Get version
+        id: get_version
+        run: |
+          echo "::set-output name=version::$(grep ixia-c-helm-chart versions.yaml | cut -d: -f2 |sed -e 's/ //g')"
+
+      - name: Check tag for current version
+        uses: mukunku/tag-exists-action@v1.0.0
+        id: check_tag
+        with:
+          tag: v${{ steps.get_version.outputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get ixia-c-controller version
+        if: steps.check_tag.outputs.exists == 'false'
+        id: get_controller_version
+        run: |
+          echo "::set-output name=version::$(grep ixia-c-controller versions.yaml | cut -d: -f2 |sed -e 's/ //g')"
+
+      - name: Get ixia-c-traffic-engine version
+        if: steps.check_tag.outputs.exists == 'false'
+        id: get_traffic_engine_version
+        run: |
+          echo "::set-output name=version::$(grep ixia-c-traffic-engine versions.yaml | cut -d: -f2 |sed -e 's/ //g')"
+
+      - name: Update ixia-c-controller Chart & values yaml
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          sed -i "s/^version.*/version\:\ ${{ steps.get_version.outputs.version }}/g" ./src/ixia-c-controller/Chart.yaml
+          sed -i "s/^appVersion.*/appVersion\:\ ${{ steps.get_controller_version.outputs.version }}/g" ./src/ixia-c-controller/Chart.yaml
+          sed -i "s/^\s*tag.*/    tag\:\ ${{ steps.get_controller_version.outputs.version }}/g" ./src/ixia-c-controller/values.yaml
+
+      - name: Update ixia-c-traffic-engine Chart & values yaml
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          sed -i "s/^version.*/version\:\ ${{ steps.get_version.outputs.version }}/g" ./src/ixia-c-traffic-engine/Chart.yaml
+          sed -i "s/^appVersion.*/appVersion\:\ ${{ steps.get_traffic_engine_version.outputs.version }}/g" ./src/ixia-c-traffic-engine/Chart.yaml
+          sed -i "s/^\s*tag.*/  tag\:\ ${{ steps.get_traffic_engine_version.outputs.version }}/g" ./src/ixia-c-traffic-engine/values.yaml
+
       - name: Install helm
+        if: steps.check_tag.outputs.exists == 'false'
         run: |
           curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
           chmod 700 get_helm.sh
@@ -27,41 +67,18 @@ jobs:
           rm -rf ./get_helm.sh
           helm
 
-      - name: Get version
-        id: get_version
-        run: |
-          echo "::set-output name=version::$(grep ixia-c-helm-chart version.yaml | cut -d: -f2 |sed -e 's/ //g')"
-
-      - name: Get ixia-c-controller version
-        id: get_controller_version
-        run: |
-          echo "::set-output name=version::$(grep ixia-c-controller version.yaml | cut -d: -f2 |sed -e 's/ //g')"
-
-      - name: Get ixia-c-traffic-engine version
-        id: get_traffic_engine_version
-        run: |
-          echo "::set-output name=version::$(grep ixia-c-traffic-engine version.yaml | cut -d: -f2 |sed -e 's/ //g')"
-
-      - name: Update ixia-c-controller Chart & values yaml
-        run: |
-          sed -i "s/^version.*/version\:\ ${{ steps.get_version.outputs.version }}/g" ./src/ixia-c-controller/Chart.yaml
-          sed -i "s/^appVersion.*/appVersion\:\ ${{ steps.get_controller_version.outputs.version }}/g" ./src/ixia-c-controller/Chart.yaml
-          sed -i "s/^\s*tag.*/    tag\:\ ${{ steps.get_controller_version.outputs.version }}/g" ./src/ixia-c-controller/values.yaml
-
-      - name: Update ixia-c-traffic-engine Chart & values yaml
-        run: |
-          sed -i "s/^version.*/version\:\ ${{ steps.get_version.outputs.version }}/g" ./src/ixia-c-traffic-engine/Chart.yaml
-          sed -i "s/^appVersion.*/appVersion\:\ ${{ steps.get_traffic_engine_version.outputs.version }}/g" ./src/ixia-c-traffic-engine/Chart.yaml
-          sed -i "s/^\s*tag.*/   tag\:\ ${{ steps.get_traffic_engine_version.outputs.version }}/g" ./src/ixia-c-traffic-engine/values.yaml
-
       - name: Create helm packages
+        if: steps.check_tag.outputs.exists == 'false'
         run: |
           helm package ./src/ixia-c-controller/
           helm package ./src/ixia-c-traffic-engine/
-          helm repo index ./ --url https://github.com/open-traffic-generator/ixia-c-helm/releases/download/v${{ steps.get_version.outputs.version }}
+          cp ./index.yaml ./prev-index.yaml
+          helm repo index ./ --url https://github.com/open-traffic-generator/ixia-c-helm/releases/download/v${{ steps.get_version.outputs.version }} --merge ./prev-index.yaml
+          rm -rf ./prev-index.yaml
 
 
       - name: Commit auto generated/updated files
+        if: steps.check_tag.outputs.exists == 'false'
         id: commit_generated
         run: |
           git config user.name "Github Actions Bot"
@@ -78,14 +95,6 @@ jobs:
             else
               echo "No changed auto generated files"
           fi
-
-      - name: Check tag for current version
-        uses: mukunku/tag-exists-action@v1.0.0
-        id: check_tag
-        with:
-          tag: v${{ steps.get_version.outputs.version }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create release and publish artifacts
         if: steps.check_tag.outputs.exists == 'false'
