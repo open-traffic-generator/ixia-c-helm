@@ -138,6 +138,15 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
         ```sh
         helm install ixia-c-controller ixia-c-helm/ixia-c-controller
         ```
+    - set environment variable values
+        ```sh 
+        helm install ixia-c-traffic-engine ixia-c-helm/ixia-c-traffic-engine --set egressDevice=veth2,service.port=556 
+        ```
+    - deploy chart of a particular version
+        ```sh 
+        helm install ixia-c-traffic-engine ixia-c-helm/ixia-c-traffic-engine --version=0.0.1 
+        ```
+
 - delete releases using `helm uninstall`
     ```sh
     helm uninstall <release-name> 
