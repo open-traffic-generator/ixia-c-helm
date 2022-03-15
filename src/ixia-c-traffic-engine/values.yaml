@@ -15,9 +15,9 @@ te:
       cpu: "1"
       memory: "500Mi"
 egressInitJob:
-  name: shrinkray-athena-egress-init-job
+  name: ixia-c-egress-init-job
   # bcm has iptools installed, so we use it to run the script
-  repository: docker-remote.artifactorylbj.it.keysight.com/busybox:latest
+  repository: busybox:latest
   pullPolicy: IfNotPresent
 imagePullSecrets: []
 nameOverride: ""
@@ -45,3 +45,5 @@ autoscaling:
 nodeSelector: {}
 tolerations: []
 affinity: {}
+optNoHugepages: "Yes"
+optNoRx: "Yes" 

@@ -6,7 +6,7 @@ metadata:
     {{- include "te.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.te.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
   strategy:
     type: Recreate
   {{- end }}
@@ -27,7 +27,6 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       hostNetwork: true
-      #serviceAccountName: {{ include "te.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -56,7 +55,9 @@ spec:
             - name: ARG_IFACE_LIST
               value: "virtual@af_packet,{{.Values.egressDevice}}"
             - name: OPT_NO_HUGEPAGES
-              value: "Yes"
+              value: "{{ .Values.optNoHugepages }}"
+            - name: OPT_NO_RX 
+              value: "{{ .Values.optNoRx }}" 
       initContainers:
         - name: "{{ .Values.egressInitJob.name }}"
           stdin: true

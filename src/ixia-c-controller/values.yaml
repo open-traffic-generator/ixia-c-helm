@@ -35,3 +35,8 @@ autoscaling:
 nodeSelector: {}
 tolerations: []
 affinity: {}
+containerArgs:
+  - "--http-port"
+  - "8080"
+  - "--accept-eula"
+  - "--disable-app-usage-reporter"

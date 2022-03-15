@@ -7,7 +7,7 @@ metadata:
 spec:
   {{- if not .Values.autoscaling.enabled }}
   {{- if .Values }}
-  replicas: {{ .Values.controller.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
   {{- end }}
   {{- end }}
   selector:
@@ -51,11 +51,7 @@ spec:
               scheme: HTTPS
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          args:
-            - "--http-port"
-            - "8080"
-            - "--accept-eula"
-            - "--disable-app-usage-reporter"
+          args: {{- toYaml .Values.containerArgs | nindent 12}}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
