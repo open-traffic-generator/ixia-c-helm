@@ -21,6 +21,10 @@ releases:
         value: veth1
       - name: service.port
         value: 5555
+      - name: optNoHugepages
+        value: "Yes"
+      - name: optNoRx
+        value: "Yes"
   - chart: ixia-c-helm/ixia-c-traffic-engine 
     cleanupOnFail: true
     name: ixia-c-traffic-engine-svc-2
@@ -30,6 +34,10 @@ releases:
       - name: name
         value: ixia-c-traffic-engine-svc-2
       - name: egressDevice
-        value: veth3
+        value: veth2
       - name: service.port
         value: 5556
+      - name: optNoHugepages
+        value: "Yes"
+      - name: optNoRx
+        value: "Yes" 
