@@ -8,8 +8,12 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
+      targetPort: 3000
       protocol: TCP
-      name: http
+      name: te
+    - port: 50071
+      targetPort: 3500
+      protocol: TCP
+      name: pe
   selector:
     {{- include "te.selectorLabels" . | nindent 4 }}

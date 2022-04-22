@@ -15,10 +15,8 @@ spec:
       {{- include "te.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        k8s.v1.cni.cncf.io/networks: '[{ "name": "veth2" , "interface": "eth1" }]'
       labels:
         {{- include "te.selectorLabels" . | nindent 8 }}
     spec:
@@ -26,7 +24,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      hostNetwork: true
+      hostNetwork: false
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -53,11 +51,37 @@ spec:
             - name: OPT_LISTEN_PORT
               value: "{{- .Values.service.port }}"
             - name: ARG_IFACE_LIST
-              value: "virtual@af_packet,{{.Values.egressDevice}}"
+              value: "virtual@af_packet,eth1"
             - name: OPT_NO_HUGEPAGES
               value: "{{ .Values.optNoHugepages }}"
             - name: OPT_NO_RX 
               value: "{{ .Values.optNoRx }}" 
+        - name: "pe"
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.pe.repository }}:{{ .Values.pe.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.pe.pullPolicy }}
+          ports:
+            - name: grpc
+              containerPort: 50071
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 50071
+            initialDelaySeconds: 10
+            periodSeconds: 1
+          readinessProbe:
+            tcpSocket:
+              port: 50071
+            initialDelaySeconds: 10
+            periodSeconds: 1
+          resources:
+            {{- toYaml .Values.pe.resources | nindent 12 }}
+          env:
+            - name: "interface"
+              value: "eth1"
+            - name: OPT_NO_HUGEPAGES
+              value: "{{ .Values.optNoHugepages }}"
       initContainers:
         - name: "{{ .Values.egressInitJob.name }}"
           stdin: true
@@ -70,7 +94,7 @@ spec:
             {{- toYaml .Values.te.resources | nindent 12 }}
           command: ["/bin/sh", "-c"]
           args:
-            - interface={{- .Values.egressDevice }};
+            - interface=eth1;
               for i in $(seq 1 5); do 
                 result=`ip link show $interface | grep UP | wc -l`; 
                 if [[ $result -eq 1 ]]; then 
