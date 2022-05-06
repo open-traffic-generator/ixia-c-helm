@@ -138,14 +138,18 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
         ```sh
         helm install ixia-c-controller ixia-c-helm/ixia-c-controller
         ```
-    - set environment variable values
-        ```sh 
-        helm install ixia-c-traffic-engine ixia-c-helm/ixia-c-traffic-engine --set egressDevice=veth2,service.port=556 
-        ```
-    - deploy chart of a particular version
-        ```sh 
-        helm install ixia-c-traffic-engine ixia-c-helm/ixia-c-traffic-engine --version=0.0.1 
-        ```
+- deploy with environment variable values
+    ```sh 
+    helm install ixia-c-traffic-engine ixia-c-helm/ixia-c-traffic-engine --set egressDevice=veth2,service.port=556 
+    ```
+- deploy with particular version
+    ```sh 
+    helm install ixia-c-traffic-engine ixia-c-helm/ixia-c-traffic-engine --version=0.0.1 
+    ```
+- deploy protocol emulation (Default value for enable_protocol_emulation is false which will deploy traffic engine only)
+    ```sh 
+    helm install ixia-c-protocol-engine ixia-c-helm/ixia-c-traffic-engine --set enable_protocol_emulation=true 
+    ```
 
 - delete releases using `helm uninstall`
     ```sh
@@ -188,6 +192,12 @@ Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c control
             value: veth1
         - name: service.port
             value: 5555
+        ```
+    - Set enable_protocol_emulation true if you want to deploy protocol engine also.
+        ```sh 
+        set:
+        - name: enable_protocol_emulation
+            value: true
         ```
     - If your want to use a different chart version add accordingly in helmfile.yaml (If you don't mention anything it will use the lastest chart version)
         ```sh 
