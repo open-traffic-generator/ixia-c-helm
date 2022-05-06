@@ -1,7 +1,7 @@
 apiVersion: "k8s.cni.cncf.io/v1"
 kind: NetworkAttachmentDefinition
 metadata:
-  name: veth2
+  name: veth1
   labels:
     # modify
     iftype.keysight.com: helm-chart

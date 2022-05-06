@@ -16,7 +16,7 @@ spec:
   template:
     metadata:
       annotations:
-        k8s.v1.cni.cncf.io/networks: '[{ "name": "veth2" , "interface": "eth1" }]'
+        k8s.v1.cni.cncf.io/networks: '[{ "name": "veth1" , "interface": "eth1" }]'
       labels:
         {{- include "te.selectorLabels" . | nindent 8 }}
     spec:
@@ -56,6 +56,7 @@ spec:
               value: "{{ .Values.optNoHugepages }}"
             - name: OPT_NO_RX 
               value: "{{ .Values.optNoRx }}" 
+        {{ if .Values.bothTePe }}
         - name: "pe"
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -82,6 +83,7 @@ spec:
               value: "eth1"
             - name: OPT_NO_HUGEPAGES
               value: "{{ .Values.optNoHugepages }}"
+        {{ end }}
       initContainers:
         - name: "{{ .Values.egressInitJob.name }}"
           stdin: true

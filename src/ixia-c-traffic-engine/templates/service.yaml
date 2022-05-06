@@ -8,12 +8,12 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: 3000
       protocol: TCP
       name: te
+    {{ if .Values.bothTePe }}
     - port: 50071
-      targetPort: 3500
       protocol: TCP
       name: pe
+    {{ end }}
   selector:
     {{- include "te.selectorLabels" . | nindent 4 }}

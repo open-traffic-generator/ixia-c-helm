@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
-name: ixia-c-traffic-engine-svc-2
-egressDevice: veth2
+name: ixia-c-traffic-engine-svc-1
+egressDevice: veth1
 te:
   repository: ixiacom/ixia-c-traffic-engine
   pullPolicy: IfNotPresent
@@ -44,7 +44,7 @@ securityContext:
       - NET_RAW
 service:
   type: LoadBalancer
-  port: 5556
+  port: 5555
 ingress:
   enabled: false
 autoscaling:
@@ -53,4 +53,5 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 optNoHugepages: "Yes"
-optNoRx: "Yes" 
+# optNoRx: "Yes" 
+enable_protocol_emulation : false
