@@ -6,9 +6,9 @@ replicaCount: 1
 name: ixia-c-traffic-engine-svc-1
 egressDevice: veth1
 te:
-  repository: ixiacom/ixia-c-traffic-engine
+  repository: ghcr.io/open-traffic-generator/ixia-c-traffic-engine
   pullPolicy: IfNotPresent
-  tag: 1.4.1.23
+  tag: 1.4.1.29
   # reserve a full CPU for athena traffic engine
   resources:
     limits:
