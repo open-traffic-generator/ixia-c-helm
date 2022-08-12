@@ -5,9 +5,9 @@
 replicaCount: 1
 
 controller:
-    repository: ixiacom/ixia-c-controller
+    repository: ghcr.io/open-traffic-generator/ixia-c-controller
     pullPolicy: IfNotPresent
-    tag: 0.0.1-2678
+    tag: 0.0.1-3027
     name: ixia-c-controller-svc
 imagePullSecrets: []
 nameOverride: ""

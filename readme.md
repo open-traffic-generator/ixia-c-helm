@@ -5,7 +5,7 @@
 </h1>
 
 <h4 align="center">
-  Helmfile based deployment solution for <a href="https://hub.docker.com/r/ixiacom/ixia-c-controller" target="_blank"> Ixia-c controller</a> and <a href="https://hub.docker.com/r/ixiacom/ixia-c-traffic-engine" target="_blank"> Ixia-c traffic engine </a> in kubernetes
+  Helmfile based deployment solution for <a href="https://github.com/orgs/open-traffic-generator/packages/container/package/ixia-c-controller" target="_blank"> Ixia-c controller</a> and <a href="https://github.com/orgs/open-traffic-generator/packages/container/package/ixia-c-traffic-engine" target="_blank"> Ixia-c traffic engine </a> in kubernetes
 </h4>
 
 <p align="center">
@@ -14,7 +14,7 @@
 </p
 
 
-Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c controller](https://hub.docker.com/r/ixiacom/ixia-c-controller) and [Ixia-c traffic engine](https://hub.docker.com/r/ixiacom/ixia-c-traffic-engine).
+Ixia-c-helm is tool to simplify the deployment of topologies for [Ixia-c controller](https://github.com/orgs/open-traffic-generator/packages/container/package/ixia-c-controller) and [Ixia-c traffic engine](https://github.com/orgs/open-traffic-generator/packages/container/package/ixia-c-traffic-engine).
 
 ## Quick Start
 - Please make sure your setup is ready with all the dependecies installed. Please follow [Prerequisites](#prerequisites) for this. 
